@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">건강한 식재료</string>
+    <string name="str_login">로그인</string>
+    <string name="str_join">회원가입</string>
+    <string name="str_cancel">취소</string>
+    <string name="str_nickname">닉네임</string>
+    <string name="str_email">이메일</string>
+    <string name="str_pw">패스워드</string>
+    <string name="str_phone_num">휴대폰번호</string>
+
+    <string name="msg_empty_email">이메일 또는 패스워드를 입력해주세요</string>
+    <string name="msg_success_join">회원 가입되었습니다.</string>
+    <string name="msg_fail_join">회원 가입에 실패했습니다.</string>
+    <string name="msg_success_login">로그인 되었습니다.</string>
+    <string name="msg_fail_login">로그인에 실패했습니다.</string>
+    <string name="msg_empty_data">데이터가 없습니다.</string>
+    <string name="msg_empty_input_ingredient">재료명을 입력해주세요</string>
+    <string name="msg_empty_input_buyCount">구입수량을 입력해주세요</string>
+    <string name="msg_empty_input_storage">저장공간을 입력해주세요</string>
+
+    <string name="str_ingredient_name">항목</string>
+    <string name="str_purchase_date">구입일</string>
+    <string name="str_storage">저장공간</string>
+    <string name="str_expire_date">유통기한</string>
+    <string name="str_running_days">경과일</string>
+    <string name="str_remains">남은수량</string>
+
+    <string name="title_activity_detail">DetailActivity</string>
+</resources>

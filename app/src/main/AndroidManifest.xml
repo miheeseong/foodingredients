@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mh.foodingredients">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".FoodIngreInfoApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Fresh Box"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainFragmentActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.ShoppingListActivity" />
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.StorageAddActivity" />
+        <activity android:name=".activity.StorageActivity" />
+        <activity android:name=".model.DateSetting" />
+        <activity android:name=".activity.DetailActivity" />
+        <activity android:name=".activity.AddIngredientActivity" />
+        <activity android:name=".activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.JoinActivity" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.ShoppingListAddActivity" />
+    </application>
+
+</manifest>

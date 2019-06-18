@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "875176087636",
+    "firebase_url": "https://foodingredients-d9075.firebaseio.com",
+    "project_id": "foodingredients-d9075",
+    "storage_bucket": "foodingredients-d9075.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875176087636:android:98ea2c635fb242a6",
+        "android_client_info": {
+          "package_name": "com.mh.foodingredients"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875176087636-t74h1523vem16rvt017fqqfrohgiklol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mh.foodingredients",
+            "certificate_hash": "bcab841662fbc8abbc4c7a711205221d7d76929e"
+          }
+        },
+        {
+          "client_id": "875176087636-hes4i2uaa7001enfvvphbttke9n2s5iv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs9qo51zsLdH8aWZmBesV_pHaPMy6FFHE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875176087636-hes4i2uaa7001enfvvphbttke9n2s5iv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

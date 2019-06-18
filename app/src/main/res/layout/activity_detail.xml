@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context=".activity.AddIngredientActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:paddingTop="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="재료명"
+                style="@style/IngrdntInfoTVStyle"/>
+
+            <EditText
+                android:id="@+id/ingredntNmEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/IngrdntInfoETStyle"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="구입일자" />
+
+            <EditText
+                android:id="@+id/buyDtEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="date"
+                style="@style/IngrdntInfoETStyle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="구입수량" />
+
+            <EditText
+                android:id="@+id/buyQtyEditText"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                style="@style/IngrdntInfoETStyle"
+                android:inputType="number"/>
+
+            <Spinner
+                android:id="@+id/purchaseUnitTextSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/unit" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="유통기한" />
+
+            <EditText
+                android:id="@+id/closeDtEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="date"
+                style="@style/IngrdntInfoETStyle"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="경과일" />
+
+            <EditText
+                android:id="@+id/runningDaysEditText"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                style="@style/IngrdntInfoETStyle"/>
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="일"
+                android:paddingLeft="8dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="저장공간" />
+
+            <EditText
+                android:id="@+id/saveSpaceEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/IngrdntInfoETStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="마지막사용일" />
+
+            <EditText
+                android:id="@+id/lastUseDtEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="date"
+                style="@style/IngrdntInfoETStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="사용량" />
+
+            <EditText
+                android:id="@+id/useQtyEditText"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                style="@style/IngrdntInfoETStyle"
+                android:inputType="number"/>
+
+            <TextView
+                android:id="@+id/useUnitTextView"
+                style="@style/IngrdntInfoTVStyle"
+                android:paddingLeft="8dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="남은양" />
+
+            <EditText
+                android:id="@+id/residualQtyEditText"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                style="@style/IngrdntInfoETStyle"/>
+
+            <TextView
+                android:id="@+id/residualUnitTextView"
+                style="@style/IngrdntInfoTVStyle"
+                android:paddingLeft="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/IngrdntInfoTVStyle"
+                android:text="추가입력" />
+
+            <EditText
+                android:id="@+id/addInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/IngrdntInfoETStyle"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_basic"
+            android:text="수정"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_stroke"
+            android:text="삭제"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+            android:background="@drawable/btn_stroke"
+            android:text="취소"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
+</FrameLayout>

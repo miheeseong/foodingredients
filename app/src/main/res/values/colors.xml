@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#136388</color>
+    <color name="colorPrimaryDark">#136388</color>
+    <color name="colorAccent">#093246</color>
+    <color name="colorButton1">#A01B25</color>
+    <color name="colorButton2">#a2a6b3</color>
+    <color name="colorButton3">#aab3a2</color>
+    <color name="backgroundColor">#F5F7FA</color>
+    <color name="textViewColor">#71818A</color>
+    <color name="editTextbackgroundColor">#E4E9EC</color>
+    <color name="storageStrokeColor">#E8ECEE</color>
+    <color name="expireBackgroundColor">#F7EDED</color>
+</resources>

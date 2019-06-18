@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.StorageAddActivity"
+    android:orientation="vertical">
+<!--
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/storageEditText"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="저장공간" />
+    </android.support.design.widget.TextInputLayout>
+-->
+
+    <TextView
+        android:text="저장공간"
+        style="@style/IngredientAddTvStyle"
+        android:layout_marginTop="50dp"/>
+    <EditText
+        android:id="@+id/storageEditText"
+        style="@style/IngredientAddEtStyle" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="저장"
+        android:background="@drawable/btn_stroke"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="bottom" />
+
+</LinearLayout>

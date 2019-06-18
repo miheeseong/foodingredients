@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:title="home"
+        android:icon="@drawable/round_home"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/acton_list"
+        android:enabled="true"
+        android:title="list"
+        android:icon="@drawable/round_list"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/round_search"
+        android:title="search"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_shopping"
+        android:enabled="true"
+        android:title="shopping List"
+        android:icon="@drawable/round_shopping"
+        app:showAsAction="always"/>
+</menu>

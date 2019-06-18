@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="unit">
+        <item>개</item>
+        <item>통</item>
+        <item>캔</item>
+        <item>근</item>
+        <item>㏄</item>
+        <item>g</item>
+        <item>kg</item>
+        <item>박스</item>
+        <item>ℓ</item>
+        <item>㎖</item>
+        <item>포기</item>
+        <item>봉지</item>
+        <item>묶음</item>
+        <item>망</item>
+        <item>팩</item>
+    </string-array>
+</resources>
