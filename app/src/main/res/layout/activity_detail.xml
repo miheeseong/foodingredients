@@ -202,9 +202,7 @@
                 android:id="@+id/residualUnitTextView"
                 style="@style/IngrdntInfoTVStyle"
                 android:paddingLeft="8dp"/>
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -215,10 +213,22 @@
 
             <EditText
                 android:id="@+id/addInputEditText"
-                android:layout_width="match_parent"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 style="@style/IngrdntInfoETStyle"/>
+            <Button
+                android:id="@+id/imgButton"
+                android:layout_marginLeft="3dp"
+                android:layout_width="57dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/camera_light_grey" />
         </LinearLayout>
+        <ImageView
+            android:id="@+id/imgPreview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
 
     </LinearLayout>
 
@@ -250,7 +260,6 @@
             android:id="@+id/cancelButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
             android:background="@drawable/btn_stroke"
             android:text="취소"

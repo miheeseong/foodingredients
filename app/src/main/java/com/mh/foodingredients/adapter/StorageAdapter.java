@@ -29,23 +29,17 @@ import java.util.Map;
 
 public class StorageAdapter extends BaseAdapter {
 
-    //StorageItemClickListener itemClickListener;
     Context context;
     ArrayList<StorageItem> items;
-    //ArrayList<IngredientItem> ingreItems;
     StorageItem in;
     String storageTxt;
     String newStorage;
-    ListView mListView;
 
-
-    //List<StorageItem> items;
     int index;
     int position;
 
 
     public StorageAdapter(Context context, ArrayList<StorageItem> items) {
-    //public StorageAdapter(Context context, List<StorageItem> items) {
         this.context = context;
         this.items = items;
     }
@@ -77,36 +71,10 @@ public class StorageAdapter extends BaseAdapter {
         Button mUpdateStorage = view.findViewById(R.id.updateButton);
 
         StorageItem item = (StorageItem) getItem(position);
-        //Map item = getItem(position);
 
         storageTextView.setText(item.storage);
         Log.d("","storageTextView"+storageTextView.toString());
 
-
-/*        storageTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("=====================index"+index);
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("index", index);
-                //index = position;
-                context.startActivity(intent);
-            }
-        });*/
-
-
-/*        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Intent intent = new Intent(StorageActivity.this, MainActivity.class);
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("index", position);
-                index = position;
-                System.out.println("==================index:"+index);
-                context.startActivity(intent);
-            }
-        });
-        */
 
         view.setTag(position);
         view.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +84,6 @@ public class StorageAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("index", position);
 
-                System.out.println("==================index:"+index);
                 context.startActivity(intent);
 
             }
@@ -129,7 +96,6 @@ public class StorageAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 final int position = Integer.parseInt((v.getTag().toString()));
-                System.out.println("====================position:"+position);
                 //index에 position대입
                 index = position;
                 in = FoodIngreInfoApplication.mUserItem.StorageItems.get(index);
@@ -141,20 +107,14 @@ public class StorageAdapter extends BaseAdapter {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // 'YES'
-                                System.out.println("===================index:"+index);
                                 ArrayList<StorageItem> items = FoodIngreInfoApplication.mUserItem.StorageItems;
                                 ArrayList<IngredientItem> ingreItem = FoodIngreInfoApplication.mUserItem.ingredientItems;
 
                                 //저장공간안에 재료들 삭제
                                 String sStorage;
                                 for(int i=0; i<ingreItem.size(); i++){
-                                    System.out.println("====================ingreItem.size:"+ingreItem.size());
                                     sStorage = ingreItem.get(i).storage;
                                     if(storageTxt.equals(sStorage)){
-
-                                        System.out.println("====================i:"+i);
-                                        System.out.println("====================sStorage:"+sStorage);
-                                        System.out.println("====================storageTxt:"+storageTxt);
 
                                         ingreItem.remove(i);
                                         //삭제되면서 index크기가 줄어들기때문에 i값도 같이 줄여준다
@@ -227,16 +187,10 @@ public class StorageAdapter extends BaseAdapter {
                         String sStorage;
                         ArrayList<IngredientItem> ingreItem = FoodIngreInfoApplication.mUserItem.ingredientItems;
                         for(int i=0; i<ingreItem.size(); i++){
-                            System.out.println("====================ingreItem.size:"+ingreItem.size());
                             sStorage = ingreItem.get(i).storage;
                             if(newStorage.equals(sStorage)){
 
-                                System.out.println("====================i:"+i);
-                                System.out.println("====================sStorage:"+sStorage);
-                                System.out.println("====================storageTxt:"+newStorage);
-
                                 ingreItem.get(i).storage = value;
-
 
                             }
 
@@ -260,53 +214,6 @@ public class StorageAdapter extends BaseAdapter {
                 });
 
                 ad.show();
-     /*
-                index = position;
-                in = FoodIngreInfoApplication.mUserItem.StorageItems.get(index);
-                //저장공간명 Text로 불러오기
-                storageTxt = FoodIngreInfoApplication.mUserItem.StorageItems.get(index).storage;
-                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(context);
-                alert_confirm.setMessage("["+storageTxt+"]에 저장된 재료들도 모두 수정됩니다. \n수정하시겠습니까?").setCancelable(false).setPositiveButton("확인",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // 'YES'
-                                System.out.println("===================index:"+index);
-                                ArrayList<StorageItem> items = FoodIngreInfoApplication.mUserItem.StorageItems;
-                                ArrayList<IngredientItem> ingreItem = FoodIngreInfoApplication.mUserItem.ingredientItems;
-
-                                //저장공간안에 재료들 삭제
-                                String sStorage;
-                                for(int i=0; i<ingreItem.size(); i++){
-                                    System.out.println("====================ingreItem.size:"+ingreItem.size());
-                                    sStorage = ingreItem.get(i).storage;
-                                    if(storageTxt.equals(sStorage)){
-
-                                        System.out.println("====================i:"+i);
-                                        System.out.println("====================sStorage:"+sStorage);
-                                        System.out.println("====================storageTxt:"+storageTxt);
-
-                                        ingreItem.remove(i);
-                                        //삭제되면서 index크기가 줄어들기때문에 i값도 같이 줄여준다
-                                        i--;
-
-                                    }
-
-                                }
-                                items.remove(in);
-                                FoodIngreInfoApplication.mDatabase.child("users").child(FoodIngreInfoApplication.mUserItem.uid).setValue(FoodIngreInfoApplication.mUserItem);
-                            }
-                        }).setNegativeButton("취소",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // 'No'
-                                return;
-                            }
-                        });
-                AlertDialog alert = alert_confirm.create();
-                alert.show();
-*/
 
             }
         });

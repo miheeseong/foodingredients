@@ -46,17 +46,12 @@ public class ShoppingListAddActivity extends AppCompatActivity {
         flag = getIntent().getFlags();
         if(flag ==1){
             index = getIntent().getIntExtra("index",index);
-            System.out.println("==============================index"+index);
 
             try{
 
                 mRemainItem = FoodIngreInfoApplication.mUserItem.ingredientItems.get(index);
 
-
-            System.out.println("==============================mRemainItem"+mRemainItem);
-
-
-            mIngredientName.setText(mRemainItem.ingredientName);
+                mIngredientName.setText(mRemainItem.ingredientName);
 
             }catch (Exception e){
 
@@ -103,8 +98,14 @@ public class ShoppingListAddActivity extends AppCompatActivity {
                 }
 
                 ArrayList<ShoppingItem> items = FoodIngreInfoApplication.mUserItem.shoppingItems;
-                items.add(item);
 
+                ArrayList<IngredientItem> igreItems = FoodIngreInfoApplication.mUserItem.ingredientItems;
+                IngredientItem in = FoodIngreInfoApplication.mUserItem.ingredientItems.get(index);
+
+                items.add(item);
+                igreItems.remove(in);
+
+                //DB에 셋팅
                 FoodIngreInfoApplication.mDatabase.child("users").child(FoodIngreInfoApplication.mUserItem.uid).setValue(FoodIngreInfoApplication.mUserItem);
 
 
