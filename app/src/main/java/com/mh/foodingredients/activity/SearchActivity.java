@@ -21,15 +21,11 @@ import java.util.ArrayList;
 
 public class SearchActivity extends Fragment {
 
-    ListView listView;          // 검색을 보여줄 리스트변수
-    EditText editSearch;        // 검색어를 입력할 Input 창
-    SearchAdapter adapter;      // 리스트뷰에 연결할 아답터
+    ListView listView;
+    EditText editSearch;
+    SearchAdapter adapter;
     ArrayList<IngredientItem> items = FoodIngreInfoApplication.mUserItem.ingredientItems;
     ArrayList<IngredientItem> viewItems = new ArrayList<>();
-
-
-    Button searchButton;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

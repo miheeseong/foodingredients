@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mStorageEditTextSample;
     int index;
     StorageItem mStorageItem;
+
     // 선택된 storage와 동일한 값을 가진 data 저장공간
     IngredientItem mIgdtItem = new IngredientItem();
     ArrayList<IngredientItem> inItem = new ArrayList<IngredientItem>();
@@ -104,8 +105,6 @@ public class MainActivity extends AppCompatActivity {
             // 선택된 storage 값을 가진 데이터만 따로 저장(inItem)하여 mAdapter로 보냄
             mRecyclerAdapter = new RecyclerViewAdapter(MainActivity.this, inItem);
             mRecyclerView.setAdapter(mRecyclerAdapter);
-
-            //final ArrayList list = inItem;
 
         }
     }

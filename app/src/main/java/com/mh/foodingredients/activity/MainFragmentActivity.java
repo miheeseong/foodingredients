@@ -17,16 +17,39 @@ import com.mh.foodingredients.R;
 public class MainFragmentActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-
+    //int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragment);
 
-        //첫화면 Home 고정
         Fragment defaultMain = new HomeActivity();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLayout, defaultMain).commit();
+
+    /*  // 각 화면에서 넘겨주는 flag로 default 화면 변경
+        action = getIntent().getFlags();
+
+        if (action==0) {
+
+            //첫화면 Home 고정
+            Fragment defaultMain = new HomeActivity();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLayout, defaultMain).commit();
+
+        } else if (action==1) {
+
+            System.out.println("==========acton_list========action:"+action);
+            Fragment defaultMain = new StorageActivity();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLayout, defaultMain).commit();
+
+        } else if (action==3) {
+
+        System.out.println("=================action:"+action);
+        Fragment defaultMain = new ShoppingListActivity();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLayout, defaultMain).commit();
+
+    }
+    */
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 
@@ -37,30 +60,34 @@ public class MainFragmentActivity extends AppCompatActivity {
                         Fragment selectedFragment = null;
 
                         switch(item.getItemId()) {
+
+                            // home
                             case R.id.action_home:
                                 selectedFragment = new HomeActivity();
-                                //textView.setText("Home");
                                 break;
+
+                            //저장공간
                             case R.id.acton_list:
                                 selectedFragment = new StorageActivity();
-                                //textView.setText("List");
                                 break;
+
+                            // 검색
                             case R.id.action_search:
                                 selectedFragment = new SearchActivity();
-                                //textView.setText("Search");
                                 break;
+
+                            // 쇼핑리스트
                             case R.id.action_shopping:
                                 selectedFragment = new ShoppingListActivity();
-                                //textView.setText("Shopping");
                                 break;
 
                         }
-                        //return true;
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLayout, selectedFragment).commit();
                         return true;
                     }
-                });
+        });
     }
+
     //메뉴바 로그아웃 구현
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,14 +107,11 @@ public class MainFragmentActivity extends AppCompatActivity {
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = auto.edit();
-        //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
+        //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지움
         editor.clear();
         editor.commit();
         finish();
 
         return true;
     }
-
-
-
 }

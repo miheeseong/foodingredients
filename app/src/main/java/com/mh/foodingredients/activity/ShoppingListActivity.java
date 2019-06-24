@@ -24,7 +24,6 @@ public class ShoppingListActivity extends Fragment {
     ShoppingListAdapter mShoppingAdapter;
     ListView mListView;
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -40,13 +39,15 @@ public class ShoppingListActivity extends Fragment {
                 Intent intent = new Intent(getActivity(), ShoppingListAddActivity.class);
                 startActivity(intent);
 
-                    }
+            }
 
-                });
+        });
 
         if (FoodIngreInfoApplication.mUserItem.shoppingItems == null) {
+
             mDefaultLayout.setVisibility(View.GONE);
             mEmptyTextView.setVisibility(View.VISIBLE);
+
         } else {
 
             mDefaultLayout.setVisibility(View.VISIBLE);
@@ -56,8 +57,6 @@ public class ShoppingListActivity extends Fragment {
             mListView.setAdapter(mShoppingAdapter);
 
         }
-
         return view;
-
     }
 }

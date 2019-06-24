@@ -54,7 +54,6 @@ public class ShoppingListAdapter extends BaseAdapter {
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView nameTextView = view.findViewById(R.id.tv_name);
         TextView purchaseCountTextView = view.findViewById(R.id.tv_purchaseCount);
-        TextView unitTypeTextView = view.findViewById(R.id.tv_storage);
 
         // Data Set(filteredItemList)에서 position에 위치한 데이터 참조 획득
         ShoppingItem item = (ShoppingItem) getItem(position);
@@ -64,8 +63,6 @@ public class ShoppingListAdapter extends BaseAdapter {
         // 아이템 내 각 위젯에 데이터 반영
         nameTextView.setText(item.ingredientName);
         purchaseCountTextView.setText(String.valueOf(item.purchaseCount)+item.unitType);
-        //unitTypeTextView.setText(item.unitType);
-
 
         Button mDeleteShoppingList = view.findViewById(R.id.deleteButton);
         Button mBuyShoppingList = view.findViewById(R.id.buyButton);

@@ -48,38 +48,32 @@ public class HomeActivity extends Fragment {
     ArrayList<IngredientItem> closeDtContents = new ArrayList<>();
     ArrayList<IngredientItem> runningDasContentss = new ArrayList<>();
     ArrayList<IngredientItem> items = FoodIngreInfoApplication.mUserItem.ingredientItems;
-    String[] stItem = new String[items.size()];
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      //  return inflater.inflate(R.layout.activity_home, container, false);
-
         View view = inflater.inflate(R.layout.activity_home, container, false);
 
-        //유통기한
+        //유통기한임박
         mCloseDtDefaultLayout = view.findViewById(R.id.defaultLayoutCloseDt);
         mCloseDtEmptyTextView = view.findViewById(R.id.emptyCloseDtTextView);
 
         mCloseDtRecyclerView = view.findViewById(R.id.closeDtRecyclerView);
         mCloseDtRecyclerView.setHasFixedSize(true);
 
-        //경과일
+        //경과일순
         mRunningDaysDefaultLayout = view.findViewById(R.id.defaultLayoutRunningDays);
         mRunningDaysEmptyTextView = view.findViewById(R.id.emptyRunningDaysTextView);
 
         mRunningDaysRecyclerView = view.findViewById(R.id.runningDaysRecyclerView);
         mRunningDaysRecyclerView.setHasFixedSize(true);
 
-
-        //최근등록
+        //최근등록일
         mLastSaveDefaultLayout = view.findViewById(R.id.defaultLayoutLastSave);
         mLastSaveEmptyTextView = view.findViewById(R.id.emptyLastSaveTextView);
 
         mLastSaveRecyclerView = view.findViewById(R.id.lastSaveRecyclerView);
         mLastSaveRecyclerView.setHasFixedSize(true);
-
-
 
         // 데이터 유무체크
         if (items == null) {
@@ -108,7 +102,6 @@ public class HomeActivity extends Fragment {
 
             mCloseDtRecyclerAdapter = new HomeRecyclerViewAdapter(getContext(), items);
             mCloseDtRecyclerView.setAdapter(mCloseDtRecyclerAdapter);
-
 
             //유통기한 adapter
             Query closeDtQuery = FoodIngreInfoApplication.mDatabase.child("users").child(FoodIngreInfoApplication.mUserItem.uid).child("ingredientItems").orderByChild("expireDate");
@@ -168,9 +161,7 @@ public class HomeActivity extends Fragment {
             mLastSaveRecyclerView.setAdapter(mLastSaveRecyclerAdapter);
 
         }
-
-
-    return view;
+        return view;
     }
 
 }

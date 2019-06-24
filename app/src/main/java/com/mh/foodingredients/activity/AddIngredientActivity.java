@@ -73,7 +73,6 @@ public class AddIngredientActivity extends AppCompatActivity {
     ArrayList<StorageItem> storageItem = new ArrayList<>();
     ArrayList<StorageItem> arrayStorageItem = FoodIngreInfoApplication.mUserItem.StorageItems;
 
-
     int index;
     String sStartDate;
     String getTime;
@@ -81,21 +80,18 @@ public class AddIngredientActivity extends AppCompatActivity {
     ImageView mImgPreview;
     String imagePath;
     int flag;
-    int storageNum;
-    String storageName;
 
     //spinner
     String[] sUnit = new String[arrayStorageItem.size()];
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredient);
 
+        //상단Title
         ActionBar ab = getSupportActionBar() ;
         ab.setTitle("재료추가") ;
-
 
         mIngreEditText = findViewById(R.id.ingredntNmEditText);
         mBuyDtEditText = findViewById(R.id.buyDtEditText);
@@ -123,6 +119,8 @@ public class AddIngredientActivity extends AppCompatActivity {
                 mStorageItem = FoodIngreInfoApplication.mUserItem.StorageItems.get(index);
             }
         }
+
+        //image선택
         mImgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,14 +128,13 @@ public class AddIngredientActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
-
             }
         });
 
-        //shoppingList에서 넘겨진 값(flag =1)
+        //shoppingList에서 구매선택 시 넘겨진 값(flag =1)
         flag = getIntent().getFlags();
 
-        if(flag == 1){
+        if(flag == 1) {
 
             mSaveSpaceEditText.setVisibility(View.GONE);
             mStorageSpinner.setVisibility(View.VISIBLE);
@@ -146,7 +143,6 @@ public class AddIngredientActivity extends AppCompatActivity {
             if (FoodIngreInfoApplication.mUserItem.shoppingItems != null) {
                 mShoppingItem = FoodIngreInfoApplication.mUserItem.shoppingItems.get(index);
             }
-
                 mBuyDtEditText.setText(item.todaySetting);
                 mIngreEditText.setText(mShoppingItem.ingredientName);
                 mBuyQtyEditText.setText(String.valueOf(mShoppingItem.purchaseCount));
@@ -154,25 +150,19 @@ public class AddIngredientActivity extends AppCompatActivity {
 
                 //저장공간 Spinner
                 for(int i=0; i<arrayStorageItem.size(); i++){
-
                     String sStorage = arrayStorageItem.get(i).storage;
                     sUnit[i] = sStorage;
-
                 }
                 try{
 
                   mStorageSpinner.setAdapter(new MyCustomAdapter(AddIngredientActivity.this, R.layout.spinner_row, sUnit));
 
-                  }
-                  catch (Exception e){
-                      System.out.println("======================Exception");
-                  }
+                } catch (Exception e) { }
 
-                  mStorageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                mStorageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            sStorageSpinner = (String) mStorageSpinner.getItemAtPosition(position);
-
+                        sStorageSpinner = (String) mStorageSpinner.getItemAtPosition(position);
                     }
 
                     @Override
@@ -181,7 +171,7 @@ public class AddIngredientActivity extends AppCompatActivity {
                     }
                 });
 
-            }else {
+            } else {
 
                 mStorageSpinner.setVisibility(View.GONE);
                 mSaveSpaceEditText.setVisibility(View.VISIBLE);
@@ -193,23 +183,23 @@ public class AddIngredientActivity extends AppCompatActivity {
 
                 sStorageSpinner = mSaveSpaceEditText.getText().toString();
 
-                }
+            }
 
-                mPurchaseUnitTextSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mPurchaseUnitType = (String) mPurchaseUnitTextSpinner.getItemAtPosition(position);
+            //수량단위spinner
+            mPurchaseUnitTextSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mPurchaseUnitType = (String) mPurchaseUnitTextSpinner.getItemAtPosition(position);
 
-                }
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                }
-            });
+            }
+        });
 
-
-
+        //구입일자
         mBuyDtEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,20 +208,20 @@ public class AddIngredientActivity extends AppCompatActivity {
                 dialog.show();
 
             }
+            DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    String sPurchaseDate = String.format("%2d-%02d-%02d", year, month+1, dayOfMonth);
+                    sStartDate = String.format("%2d%02d%02d", year, month+1, dayOfMonth);
 
-                        String sPurchaseDate = String.format("%2d-%02d-%02d", year, month+1, dayOfMonth);
-                        sStartDate = String.format("%2d%02d%02d", year, month+1, dayOfMonth);
-
-                        mBuyDtEditText.setText(new StringBuilder(sPurchaseDate));
-                        item.purchaseDate = mBuyDtEditText.getText().toString();
-                    }
-                };
+                    mBuyDtEditText.setText(new StringBuilder(sPurchaseDate));
+                    item.purchaseDate = mBuyDtEditText.getText().toString();
+                }
+            };
         });
 
+        //유통기한
         mCloseDtEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,7 +245,7 @@ public class AddIngredientActivity extends AppCompatActivity {
 
         });
 
-
+        //저장
         findViewById(R.id.saveButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -280,8 +270,6 @@ public class AddIngredientActivity extends AppCompatActivity {
                     return;
                 }
 
-
-
                 ArrayList<String> stItem = new ArrayList<String>();
                 IngredientItem item = new IngredientItem(materialName, purchaseDate, storage, ingreId);
 
@@ -291,7 +279,6 @@ public class AddIngredientActivity extends AppCompatActivity {
 
                 }
                 item.ingreId = UUID.randomUUID().toString();
-
                 item.expireDate = mCloseDtEditText.getText().toString();
                 item.storage = sStorageSpinner;
                 item.additionalData = mAddInputEditText.getText().toString();
@@ -310,12 +297,9 @@ public class AddIngredientActivity extends AppCompatActivity {
                 long now = System.currentTimeMillis();
                 Date date = new Date(now);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                //String getTime = sdf.format(date);
-
                 String sEndDate = getTime;
 
-
-                try{ // String Type을 Date Type으로 캐스팅하면서 생기는 예외로 인해 여기서 예외처리 해주지 않으면 컴파일러에서 에러가 발생해서 컴파일을 할 수 없다.
+                try { // String Type을 Date Type으로 캐스팅하면서 생기는 예외로 인해 여기서 예외처리 해주지 않으면 컴파일러에서 에러가 발생해서 컴파일을 할 수 없다.
                     Date dStartDate = sdf.parse(purchaseDate);
                     Date dEndDate = sdf.parse(sEndDate);
 
@@ -331,12 +315,7 @@ public class AddIngredientActivity extends AppCompatActivity {
 
                     item.runningDays = (calDateDays+1);
 
-                }
-                catch(ParseException e)
-                {
-                    // 예외 처리
-                }
-
+                } catch(ParseException e) { }
 
                 if (FoodIngreInfoApplication.mUserItem.ingredientItems == null) {
                     FoodIngreInfoApplication.mUserItem.ingredientItems = new ArrayList<>();
@@ -351,14 +330,12 @@ public class AddIngredientActivity extends AppCompatActivity {
                     //저장과 함께 shoppingList에서 삭제하기
                     shoppintItems.remove(mShoppingItem);
 
-                }catch (Exception e){
-
-                }
+                } catch (Exception e) { }
                 FoodIngreInfoApplication.mDatabase.child("users").child(FoodIngreInfoApplication.mUserItem.uid).setValue(FoodIngreInfoApplication.mUserItem);
-
             }
         });
 
+        //취소
         findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -367,14 +344,14 @@ public class AddIngredientActivity extends AppCompatActivity {
 
             }
         });
-
     }
+
     //결과 처리
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
-        if(requestCode == 0 && resultCode == RESULT_OK){
+        if (requestCode == 0 && resultCode == RESULT_OK) {
 
             filePath = data.getData();
 
@@ -383,7 +360,6 @@ public class AddIngredientActivity extends AppCompatActivity {
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //Bitmap bmRtate = rotateBitmap(bitmap, orientation);
 
                 imagePath = String.valueOf(filePath);
 
@@ -396,21 +372,17 @@ public class AddIngredientActivity extends AppCompatActivity {
                         //.rotate(rotateImage(degree,imagePath))
                         .into(mImgPreview);
 
-                //mImgPreview.setImageBitmap(bitmap);
-
-    //            System.out.println("===================imagePath"+imagePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         uploadFile();
     }
-    //upload the file
+
+    //파일 업로드
     private void uploadFile() {
-        System.out.println("=========================img3===filePath:"+filePath);
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
-            System.out.println("=========================img4");
             //업로드 진행 Dialog 보이기
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("업로드중...");
@@ -419,16 +391,16 @@ public class AddIngredientActivity extends AppCompatActivity {
             //storage
             FirebaseStorage storage = FirebaseStorage.getInstance();
 
-            //Unique한 파일명을 만들자.
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
             Date now = new Date();
             //String filename = formatter.format(now) + ".png";
             String filename = formatter.format(now) + ".jpg";
+
             //storage 주소와 폴더 파일명을 지정해 준다.
             final StorageReference storageRef = storage.getReferenceFromUrl("gs://foodingredients-d9075.appspot.com").child("images/" + filename);
-            //올라가거라...
+
             storageRef.putFile(filePath)
-                    //성공시
+                    //성공
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -440,16 +412,13 @@ public class AddIngredientActivity extends AppCompatActivity {
                                 }
                             });
 
-                            //Uri downloadUrl = uri;
-                            //Toast.makeText(getBaseContext(), "Upload success! URL - " + downloadUrl.toString() , Toast.LENGTH_SHORT).show();
-
                             progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                             Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
 
-
                         }
                     })
-                    //실패시
+
+                    //실패
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -457,13 +426,14 @@ public class AddIngredientActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
                         }
                     })
+
                     //진행중
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
+                            @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다.
                                     double progress = (100 * taskSnapshot.getBytesTransferred()) /  taskSnapshot.getTotalByteCount();
-                            //dialog에 진행률을 퍼센트로 출력해 준다
+                            //dialog에 진행률을 퍼센트로 출력
                             progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
                         }
                     });
@@ -473,95 +443,6 @@ public class AddIngredientActivity extends AppCompatActivity {
         }
 
     }
-    /*
-    private String getRightAngleImage(String photoPath) {
-        System.out.println("=============================start");
-
-        try {
-            System.out.println("======0000=============photoPath:"+photoPath);
-            ExifInterface ei = new ExifInterface("content:/com.google.android.apps.docs.storage/document/acc%3D1%3Bdoc%3Dencoded%3DTtDqx0JRuQDV%2FB8xTCtxNwbeBwIwbL4X9AuNsyu5ah3qeqJyWTcgsm8%3D");
-            System.out.println("======0000=============ei:"+ei);
-            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            int degree = 0;
-            System.out.println("======1111=============photoPath:"+photoPath);
-
-            switch (orientation) {
-
-                case ExifInterface.ORIENTATION_NORMAL:
-                    degree = 0;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    degree = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    degree = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    degree = 270;
-                    break;
-                case ExifInterface.ORIENTATION_UNDEFINED:
-                    degree = 0;
-                    break;
-                default:
-                    degree = 90;
-                    System.out.println("======2222=============orientation:"+orientation);
-            }
-
-            return rotateImage(degree,photoPath);
-
-        } catch (Exception e) {
-            System.out.println("======3333=============");
-            e.printStackTrace();
-        }
-
-        return photoPath;
-    }
-
-    private String rotateImage(int degree, String imagePath){
-        System.out.println("======4444=============imagePath: "+imagePath);
-
-        if(degree<=0){
-            System.out.println("======5555=============degree: "+degree);
-            return imagePath;
-
-        }
-        try{
-            Bitmap b= BitmapFactory.decodeFile(imagePath);
-
-            System.out.println("======6666=============b: "+b);
-
-            Matrix matrix = new Matrix();
-            if(b.getWidth()>b.getHeight()){
-                matrix.setRotate(degree);
-                b = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(),
-                        matrix, true);
-                System.out.println("======7777=============b: "+b);
-            }
-
-            FileOutputStream fOut = new FileOutputStream(imagePath);
-            String imageName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
-            String imageType = imageName.substring(imageName.lastIndexOf(".") + 1);
-
-            FileOutputStream out = new FileOutputStream(imagePath);
-            if (imageType.equalsIgnoreCase("png")) {
-                b.compress(Bitmap.CompressFormat.PNG, 100, out);
-                System.out.println("======8888=============b: "+b);
-            }else if (imageType.equalsIgnoreCase("jpeg")|| imageType.equalsIgnoreCase("jpg")) {
-                b.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                System.out.println("======9999=============b: "+b);
-            }
-            fOut.flush();
-            fOut.close();
-
-            b.recycle();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return imagePath;
-    }
-
-
-*/
 
     public class MyCustomAdapter extends ArrayAdapter<String> {
 
@@ -594,11 +475,11 @@ public class AddIngredientActivity extends AppCompatActivity {
             TextView label=(TextView)row.findViewById(R.id.storageItem);
             label.setText(sUnit[position]);
 
-
             return row;
         }
     }
 
+    //구입수량단위 spinner
     private int convertUnitType () {
         if (TextUtils.isEmpty(mShoppingItem.unitType)) {
             return 0;
@@ -653,8 +534,6 @@ public class AddIngredientActivity extends AppCompatActivity {
                 return 0;
         }
     }
-
-
 }
 
 

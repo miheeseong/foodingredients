@@ -1,10 +1,10 @@
 package com.mh.foodingredients.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -12,25 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mh.foodingredients.FoodIngreInfoApplication;
 import com.mh.foodingredients.R;
 import com.mh.foodingredients.model.UserItem;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-public class JoinActivity extends AppCompatActivity implements View.OnClickListener{
+public class JoinActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = "JoinActivity";
 
@@ -41,10 +34,6 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     Button mEmailCheckButton;
 
     FirebaseUser user = FoodIngreInfoApplication.mAuth.getCurrentUser();
-
-    UserItem userItem;
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,13 +46,15 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         mPhoneNumEditText = findViewById(R.id.phoneNumEditText);
         mEmailCheckButton = findViewById(R.id.emailCheckButton);
 
+        findViewById(R.id.joinButton).setOnClickListener(this);
+        findViewById(R.id.cancelButton).setOnClickListener(this);
+
+        //Email중복체크
         mEmailCheckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
                 if (TextUtils.isEmpty(mEmailEditText.getText().toString())) {
-
                     Toast.makeText(JoinActivity.this, "이메일주소를 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -72,25 +63,15 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String sEmail = mEmailEditText.getText().toString();
-
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            System.out.println("======================dataSnapshot:"+dataSnapshot.getChildrenCount());
-                            System.out.println("======================snapshot:"+snapshot.getChildrenCount());
-                            System.out.println("======================sEmail"+sEmail);
-
                             UserItem items = snapshot.getValue(UserItem.class);
-                            System.out.println("====================item.email:"+items.email);
                             if (sEmail.equals(items.email)) {
-
                                 Toast.makeText(JoinActivity.this, "이미 가입된 이메일주소입니다.", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             else {
                                 Toast.makeText(JoinActivity.this, "사용 가능한 이메일주소입니다.", Toast.LENGTH_SHORT).show();
-
                             }
-
-
                         }
                     }
 
@@ -99,18 +80,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
-
-
-
-
-
-
             }
         });
-
-        findViewById(R.id.joinButton).setOnClickListener(this);
-        findViewById(R.id.cancelButton).setOnClickListener(this);
-
     }
 
     private void createAccount(final String email, String password) {
@@ -119,18 +90,11 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        //showProgressDialog();
-
-        // [START create_user_with_email]
-        Log.d(TAG, "validateFormEnd:"+email+password);
-        Log.d(TAG, String.valueOf(FoodIngreInfoApplication.mAuth));
-
         FoodIngreInfoApplication.mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
 
                             UserItem item = new UserItem();
@@ -148,29 +112,19 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                             Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
                             startActivity(intent);
 
-
-
-                            //finish();
-
+                            finish();
 
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(JoinActivity.this, getString(R.string.msg_fail_join), Toast.LENGTH_SHORT).show();
                         }
-
-                        // [START_EXCLUDE]
-                        //hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
-                });
-        // [END create_user_with_email]
+        });
     }
 
     private boolean validateForm() {
         boolean valid = true;
 
-        Log.d(TAG,"22222222");
         String email = mEmailEditText.getText().toString();
         Log.d(TAG, email);
 
@@ -206,6 +160,5 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
         }
-
     }
 }

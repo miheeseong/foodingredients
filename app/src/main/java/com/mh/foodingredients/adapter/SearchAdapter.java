@@ -21,7 +21,6 @@ public class SearchAdapter extends BaseAdapter {
     ViewHolder viewHolder;
     ArrayList<IngredientItem> items;
     int index;
-    int position;
 
     public SearchAdapter(Context context, ArrayList<IngredientItem> items) {
         this.context = context;
@@ -46,7 +45,6 @@ public class SearchAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        //View view = convertView;
         if (convertView == null) {
 
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search, null);
@@ -61,7 +59,6 @@ public class SearchAdapter extends BaseAdapter {
 
         viewHolder.label.setText(items.get(position).ingredientName);
 
-//        convertView.setTag(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,8 +79,8 @@ public class SearchAdapter extends BaseAdapter {
         });
 
         return convertView;
-
     }
+
     class ViewHolder{
         public TextView label;
     }

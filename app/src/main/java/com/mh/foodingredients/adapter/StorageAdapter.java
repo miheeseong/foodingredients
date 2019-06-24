@@ -4,15 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +18,8 @@ import com.mh.foodingredients.R;
 import com.mh.foodingredients.activity.MainActivity;
 import com.mh.foodingredients.model.IngredientItem;
 import com.mh.foodingredients.model.StorageItem;
-import com.mh.foodingredients.model.StorageItemClickListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class StorageAdapter extends BaseAdapter {
 
@@ -34,10 +28,7 @@ public class StorageAdapter extends BaseAdapter {
     StorageItem in;
     String storageTxt;
     String newStorage;
-
     int index;
-    int position;
-
 
     public StorageAdapter(Context context, ArrayList<StorageItem> items) {
         this.context = context;
@@ -69,12 +60,8 @@ public class StorageAdapter extends BaseAdapter {
         TextView storageTextView = view.findViewById(R.id.iv_storageTitle);
         Button mDeleteStorage = view.findViewById(R.id.deleteButton);
         Button mUpdateStorage = view.findViewById(R.id.updateButton);
-
         StorageItem item = (StorageItem) getItem(position);
-
         storageTextView.setText(item.storage);
-        Log.d("","storageTextView"+storageTextView.toString());
-
 
         view.setTag(position);
         view.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +70,6 @@ public class StorageAdapter extends BaseAdapter {
                 index = position;
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("index", position);
-
                 context.startActivity(intent);
 
             }
@@ -96,9 +82,11 @@ public class StorageAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 final int position = Integer.parseInt((v.getTag().toString()));
+
                 //index에 position대입
                 index = position;
                 in = FoodIngreInfoApplication.mUserItem.StorageItems.get(index);
+
                 //저장공간명 Text로 불러오기
                 storageTxt = FoodIngreInfoApplication.mUserItem.StorageItems.get(index).storage;
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(context);
@@ -112,9 +100,11 @@ public class StorageAdapter extends BaseAdapter {
 
                                 //저장공간안에 재료들 삭제
                                 String sStorage;
-                                for(int i=0; i<ingreItem.size(); i++){
+                                for (int i=0; i<ingreItem.size(); i++) {
+
                                     sStorage = ingreItem.get(i).storage;
-                                    if(storageTxt.equals(sStorage)){
+
+                                    if (storageTxt.equals(sStorage)) {
 
                                         ingreItem.remove(i);
                                         //삭제되면서 index크기가 줄어들기때문에 i값도 같이 줄여준다
@@ -148,7 +138,6 @@ public class StorageAdapter extends BaseAdapter {
                 index = position;
 
                 AlertDialog.Builder ad = new AlertDialog.Builder(context);
-                //AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
                 ad.setTitle("저장공간 수정");// 제목 설정
                 ad.setMessage("저장된 재료들도 모두 수정됩니다.");
@@ -158,7 +147,6 @@ public class StorageAdapter extends BaseAdapter {
                 ad.setView(et);
                 et.setText(items.get(position).storage);
                 newStorage = items.get(position).storage;
-
 
                 // 확인 버튼 설정
                 ad.setPositiveButton("저장", new DialogInterface.OnClickListener() {
@@ -177,8 +165,10 @@ public class StorageAdapter extends BaseAdapter {
 
                         ArrayList<StorageItem> items = FoodIngreInfoApplication.mUserItem.StorageItems;
 
-                        for(int i=0; i<items.size(); i++){
-                            if(value.equals(items.get(i).storage)){
+                        for (int i=0; i<items.size(); i++) {
+
+                            if (value.equals(items.get(i).storage)) {
+
                                 Toast.makeText(context, "동일한 저장공간이 있습니다.", Toast.LENGTH_SHORT).show();
                                 return;
 
@@ -186,9 +176,12 @@ public class StorageAdapter extends BaseAdapter {
                         }
                         String sStorage;
                         ArrayList<IngredientItem> ingreItem = FoodIngreInfoApplication.mUserItem.ingredientItems;
-                        for(int i=0; i<ingreItem.size(); i++){
+
+                        for (int i=0; i<ingreItem.size(); i++) {
+
                             sStorage = ingreItem.get(i).storage;
-                            if(newStorage.equals(sStorage)){
+
+                            if (newStorage.equals(sStorage)) {
 
                                 ingreItem.get(i).storage = value;
 
@@ -217,7 +210,6 @@ public class StorageAdapter extends BaseAdapter {
 
             }
         });
-
         return view;
     }
 }

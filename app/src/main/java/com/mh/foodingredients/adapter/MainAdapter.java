@@ -85,9 +85,7 @@ public class MainAdapter extends BaseAdapter {
 
             item.runningDays = (calDateDays + 1);
 
-        } catch (ParseException e) {
-            // 예외 처리
-        }
+        } catch (ParseException e) { }
 
         // 아이템 내 각 위젯에 데이터 반영
         titleTextView.setText(item.ingredientName);

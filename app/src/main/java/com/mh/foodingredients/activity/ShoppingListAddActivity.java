@@ -1,5 +1,6 @@
 package com.mh.foodingredients.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -29,8 +30,6 @@ public class ShoppingListAddActivity extends AppCompatActivity {
     int flag;
     int index;
     IngredientItem mRemainItem;
-    IngredientItem item = new IngredientItem();
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,18 +43,17 @@ public class ShoppingListAddActivity extends AppCompatActivity {
         mUnitText = findViewById(R.id.purchaseUnitTextSpinner);
 
         flag = getIntent().getFlags();
+
         if(flag ==1){
+
             index = getIntent().getIntExtra("index",index);
 
             try{
 
                 mRemainItem = FoodIngreInfoApplication.mUserItem.ingredientItems.get(index);
-
                 mIngredientName.setText(mRemainItem.ingredientName);
 
-            }catch (Exception e){
-
-            }
+            }catch (Exception e) { }
 
         }
 
@@ -71,7 +69,9 @@ public class ShoppingListAddActivity extends AppCompatActivity {
             }
         });
 
+        // 저장
         mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("WrongConstant")
             @Override
             public void onClick(View v) {
 
@@ -97,8 +97,8 @@ public class ShoppingListAddActivity extends AppCompatActivity {
                     FoodIngreInfoApplication.mUserItem.shoppingItems = new ArrayList<>();
                 }
 
+                // 쇼핑리스트 저장과 동시에 재료항목에서 삭제
                 ArrayList<ShoppingItem> items = FoodIngreInfoApplication.mUserItem.shoppingItems;
-
                 ArrayList<IngredientItem> igreItems = FoodIngreInfoApplication.mUserItem.ingredientItems;
                 IngredientItem in = FoodIngreInfoApplication.mUserItem.ingredientItems.get(index);
 
@@ -108,10 +108,14 @@ public class ShoppingListAddActivity extends AppCompatActivity {
                 //DB에 셋팅
                 FoodIngreInfoApplication.mDatabase.child("users").child(FoodIngreInfoApplication.mUserItem.uid).setValue(FoodIngreInfoApplication.mUserItem);
 
+/*              // shoppingListActivity로 변경할 수 있게 flag 넘겨주기
+                int a=3;
+                Intent intent = new Intent(ShoppingListAddActivity.this, MainFragmentActivity.class);
+                intent.addFlags(a);
+                startActivity(intent);
+*/
 
                 finish();
-
-
             }
         });
         mCancelButton.setOnClickListener(new View.OnClickListener() {

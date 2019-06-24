@@ -1,6 +1,5 @@
 package com.mh.foodingredients.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,7 +34,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     TextInputEditText mPwEditText;
     CheckBox mAutoLoginCheck;
     Button mLoginButton;
-
     SharedPreferences auto;
     SharedPreferences.Editor editor;
 
@@ -53,12 +51,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         auto = getSharedPreferences("auto", 0);
         editor = auto.edit();
 
-        if(auto.getBoolean("mAutoLoginCheck", false)){
+        if (auto.getBoolean("mAutoLoginCheck", false)) {
 
             mEmailEditText.setText(auto.getString("email", ""));
-            //mEmailEditText.setText("ss@gmail.com");
             mPwEditText.setText(auto.getString("pw", ""));
-            //mPwEditText.setText("ssssss");
 
             String email = mEmailEditText.getText().toString();
             String pw = mPwEditText.getText().toString();
@@ -82,8 +78,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         return;
                     }
 
-                    if(mAutoLoginCheck.isChecked()){
-
+                    if (mAutoLoginCheck.isChecked()) {
                         editor.putString("email",email);
                         editor.putString("pw",pw);
                         editor.putBoolean("mAutoLoginCheck", true);
@@ -101,6 +96,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         }
 
+        //회원가입
         findViewById(R.id.joinButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +106,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 }
             });
         }
+
     private void signIn(String email, String password) {
         Log.d(TAG, "singIn" + email);
 
@@ -117,13 +114,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             return;
         }
 
-        // [START sign_in_with_email]
         FoodIngreInfoApplication.mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             final FirebaseUser user = FoodIngreInfoApplication.mAuth.getCurrentUser();
 
@@ -132,8 +127,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                                            System.out.println("======================dataSnapshot:"+dataSnapshot.getChildrenCount());
-                                            System.out.println("======================postSnapshot:"+postSnapshot.getChildrenCount());
                                             UserItem item = postSnapshot.getValue(UserItem.class);
                                             if (!TextUtils.isEmpty(item.uid) && item.uid.equals(user.getUid())) {
                                                 FoodIngreInfoApplication.mUserItem = item;
@@ -155,13 +148,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             });
 
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, getString(R.string.msg_fail_login),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+        });
     }
 
     private boolean validateForm() {
